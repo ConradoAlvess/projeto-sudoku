@@ -6,29 +6,36 @@
     <title>Sudoku</title>
 </head>
 <body>
+    <!-- Criação do container principal -->
     <div class="container">
 
         <h1 class="titulo-h1">Sudoku</h1>
-        <div class="top">
-        <select id="difficulty">
-            <option value="easy">fácil</option>
-            <option value="medium">Médio</option>
-            <option value="hard">Difícil</option>
-        </select>
-        <span id="timer">00:00</span>    
-        </div>
-    
-        <div id="board"></div>
 
-        <div class="buttons">
-            <button id="new game">Novo Jogo/button>
-            <button id="undo">  Desfazer</button>
-            <button id="erase">Apagar</button>
-            <button id="hint">Dica</button>
-            <button id="check">Veirifcar</button>
+        <!-- Div da barra supeior com a dificuldade e crônometro -->
+        <div class="top">
+            <select id="difficulty">
+                <option value="easy">fácil</option>
+                <option value="medium">Médio</option>
+                <option value="hard">Difícil</option>
+            </select>
+
+            <span id="timer">00:00</span>    
         </div>
         
-        <p class="dicas">Dicas restantes: <span id="hints">3</span></p>
+        <!-- Div onde o javascript cria as 81 célunas do Sudoku -->
+        <div id="board"></div>
+
+        <!-- Div onde agrupa os botões do site -->
+        <div class="buttons">
+            <button id="new game">Novo Jogo</button>
+            <button id="undo">Desfazer</button>
+            <button id="erase">Apagar</button>
+            <button id="hint">Dica</button>
+            <button id="check">Verificar</button>
+        </div>
+        
+        <!-- Exibe o contador de dicas restantes -->
+        <p class="dicas">Dicas restantes:<span id="hints">3</span></p>
     
     
     </div>

@@ -1,4 +1,32 @@
-#container{
-    background-color: aqua;
-    color: green;
+/* Remove margens e configurações padrão do navegador,
+padronizando o layout e a fonte do projeto */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+/* Configura o fundo da página e centraliza
+todo o conteúdo principal do jogo */
+body{
+    background:#1a1a1a;
+    display:flex;
+    justify-content:center;
+    padding:20px;
+}
+/*Container principal que limita a largura do jogo
+e mantém tudo organizado no centro da tela */
+.container{
+    text-align:center;
+    max-width:600px;
+    width:100%;
+}
+
+/* Organiza a área superior que contém
+o seletor de dificuldade e o cronômetro */
+.top{
+    display:flex;
+    justify-content:space-between;
+    margin:15px 0;
 }

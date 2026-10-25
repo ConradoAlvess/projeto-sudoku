@@ -30,3 +30,11 @@ o seletor de dificuldade e o cronômetro */
     justify-content:space-between;
     margin:15px 0;
 }
+.button{
+    padding:10px 20px;
+    background:greenyellow;
+    color:white;
+    border:none;
+    border-radius:5px;
+    top:0px,
+}

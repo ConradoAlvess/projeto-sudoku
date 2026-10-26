@@ -34,12 +34,20 @@ o seletor de dificuldade e o cronômetro */
 .buttons{
     padding:10px 20px;
     color:white;
+    background-color:#333;
     border:none;
     border-radius:5px;
     top:0px;
 }
 
 #timer{
-    font-size:20px;
+    font-size: 25px;
     color:white;
+}
+
+.titulo-h1 {
+    color: white;
+    margin-bottom:20px;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }

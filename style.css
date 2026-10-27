@@ -65,3 +65,12 @@ o seletor de dificuldade e o cronômetro */
     text-align: center;
     font-size: 18px;
 }
+
+#board {
+    display:grid;
+    top: 10px;
+    left: 10px;
+    grid-template-columns: repeat(4, 1fr);
+    gap:10px;
+    margin-top:20px;
+}

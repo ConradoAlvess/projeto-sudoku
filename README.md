@@ -33,6 +33,7 @@ Integrantes:
 
 Breno Cavalcane
 Felipe Miguel Silva
+Fernanda Paiva Lavado
 Gabriel Oliveira Gonçalves
 Gustavo Alves Conrado de Lima
 

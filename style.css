@@ -36,18 +36,41 @@ o seletor de dificuldade e o cronômetro */
     margin:15px 0;
 }
 
-.buttons{
-    padding:10px 20px;
-    color:white;
-    background-color:#333;
-    border:none;
-    border-radius:5px;
-    top:0px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor:pointer;
+
+.buttons button {
+    padding: 11px 16px;
+    color: white;
+    background-color: #159a8c;
+    border: 1px solid #159a8c;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease,
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
 }
+
+/* Efeito ao passar o mouse */
+.buttons button:hover {
+    background-color: #11796f;
+    border-color: #11796f;
+    box-shadow: 0 4px 10px rgba(21, 154, 140, 0.25);
+    transform: translateY(-2px);
+}
+
+/* Efeito ao clicar */
+.buttons button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* Destaque ao navegar pelos botões com o teclado */
+.buttons button:focus-visible {
+    outline: 2px solid #64d8cb;
+    outline-offset: 3px;
+}
+
 
 #timer{
     font-size: 25px;
@@ -79,9 +102,70 @@ o seletor de dificuldade e o cronômetro */
 
 #board {
     display:grid;
-    top: 10px;
-    left: 10px;
-    grid-template-columns: repeat(4, 1fr);
-    gap:10px;
+    grid-template-columns: repeat(9, 1fr);
     margin-top:20px;
+}
+
+.celula {
+    color: white;
+    background-color: #333;
+    border: 1px solid #666;
+    min-height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+
+/* Célula selecionada */
+.celula.selecionada {
+    background-color: #1976d2;
+    border: 2px solid #64b5f6;
+}
+
+/* Células da mesma linha, coluna ou região */
+.celula.relacionada {
+    background-color: #454545;
+}
+
+/* Números que violam as regras do Sudoku */
+.celula.erro {
+    background-color: #b71c1c;
+    color: #ffffff;
+    border: 1px solid #ff5252;
+}
+
+/* Separação dos blocos 3x3 */
+.celula {
+    border: 1px solid #666;
+    box-sizing: border-box;
+}
+
+/* Linha vertical entre os blocos */
+.celula:nth-child(3n) {
+    border-right: 3px solid #159a8c;
+}
+
+/* Linha horizontal entre os blocos */
+.celula:nth-child(n + 19):nth-child(-n + 27),
+.celula:nth-child(n + 46):nth-child(-n + 54),
+.celula:nth-child(n + 73):nth-child(-n + 81) {
+    border-bottom: 3px solid #159a8c;
+}
+
+/* Contorno externo do tabuleiro */
+.celula:nth-child(-n + 9) {
+    border-top: 3px solid #159a8c;
+}
+
+.celula:nth-child(9n + 1) {
+    border-left: 3px solid #159a8c;
+}
+
+.celula:nth-child(9n) {
+    border-right: 3px solid #159a8c;
+}
+
+.celula:nth-child(n + 73) {
+    border-bottom: 3px solid #159a8c;
 }

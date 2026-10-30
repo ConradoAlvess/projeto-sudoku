@@ -58,6 +58,8 @@ o seletor de dificuldade e o cronômetro */
     display:flex;
     justify-content:space-between;
     margin:15px 0;
+    gap: 12px;
+    align-items: center;
 }
 
 /* Personaliza o título do jogo utilizando
@@ -189,12 +191,14 @@ para*facilitar*a*visualização do tempo da partida */
     background-color: #b71c1c;
     color: #ffffff;
     border: 1px solid #ff5252;
+    padding: 16px;
 }
 
 /* Separação dos blocos 3x3 */
 .celula {
     border: 1px solid #666;
     box-sizing: border-box;
+    font-size: clamp(14px, 4vw, 20px);
 }
 
 /* Linha board entre os blocos */

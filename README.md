@@ -31,10 +31,12 @@ Projeto desenvolvido em grupo para fins educacionais, com foco na prática de de
 
 Integrantes:
 
-Breno Cavalcane
-Felipe Miguel Silva
-Fernanda Paiva Lavado
-Gabriel Oliveira Gonçalves
-Gustavo Alves Conrado de Lima
+Breno Cavalcane |
+Felipe Miguel Silva | 
+Fernanda Paiva Lavado |
+Gabriel Oliveira Gonçalves |
+Gustavo Alves Conrado de Lima |
+
+https://conradoalvess.github.io/projeto-sudoku/
 
  

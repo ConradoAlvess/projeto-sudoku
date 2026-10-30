@@ -36,6 +36,21 @@ o seletor de dificuldade e o cronômetro */
     margin:15px 0;
 }
 
+/* Personaliza o título do jogo utilizando
+um gradiente para dar aparência moderna */
+.titulo-h1{
+    font-size: 40px;
+     /* Aplica o gradiente de branco para cinza */
+    background: linear-gradient(to right, #ffffff 35%, #808080 80%);
+    font-weight: bold;
+    /* Faz o gradiente aparecer apenas dentro das letras */
+    -webkit-background-clip: text;
+    background-clip: text;
+    /* Deixa o preenchimento original do texto transparente */
+    -webkit-text-fill-color: transparent;
+    -webkit-text-fill-color: transparent;
+}
+
 
 .buttons button {
     padding: 11px 16px;
@@ -70,6 +85,19 @@ o seletor de dificuldade e o cronômetro */
 .buttons button:focus-visible {
     outline: 2px solid #64d8cb;
     outline-offset: 3px;
+}
+
+.dicas{
+    font-size: 40px;
+     /* Aplica o gradiente de branco para cinza */
+    background: linear-gradient(to right, #64d8cb 35%, #364632 80%);
+    font-weight: bold;
+    /* Faz o gradiente aparecer apenas dentro das letras */
+    -webkit-background-clip: text;
+    background-clip: text;
+    /* Deixa o preenchimento original do texto transparente */
+    -webkit-text-fill-color: transparent;
+    -webkit-text-fill-color: transparent;
 }
 
 

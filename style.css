@@ -49,6 +49,7 @@ o seletor de dificuldade e o cronômetro */
     transition: background-color 0.2s ease,
                 transform 0.2s ease,
                 box-shadow 0.2s ease;
+    margin-bottom: 20px;
 }
 
 /* Efeito ao passar o mouse */
@@ -104,6 +105,7 @@ o seletor de dificuldade e o cronômetro */
     display:grid;
     grid-template-columns: repeat(9, 1fr);
     margin-top:20px;
+    margin-bottom: 20px;
 }
 
 .celula {

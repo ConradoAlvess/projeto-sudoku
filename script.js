@@ -244,3 +244,29 @@ botaoVerificar.addEventListener("click", function() {
     alert("Parabéns! Você concluiu o jogo com êxito!");
 });
 
+/* Controle de tema (Escuro/Claro) Permite ao usuário alternar entre os temas e salva a preferência no navegador usando localStorage, mantendo a escolha mesmo após fechar ou recarregar a página. */
+
+// Seleciona o botão de troca de tema
+const btn = document.getElementById("temaClaroEscuro");
+
+// Verifica se o usuário havia escolhido o tema claro anteriormente
+if (localStorage.getItem("tema") === "claro") {
+    document.body.classList.add("light-mode");
+    btn.textContent = "🌙Tema Escuro"
+} else {
+    btn.textContent = "☀️Tema Claro"
+}
+
+// Alterna entre os temas ao clicar no botão
+btn.addEventListener("click", () => {
+    document.body.classList.toggle("light-mode");
+     // Salva a escolha do usuário no navegador
+    if (document.body.classList.contains("light-mode")) {
+        localStorage.setItem("tema", "claro");
+        btn.textContent = "🌙Tema Escuro"
+    } else {
+        localStorage.setItem("tema", "escuro");
+        btn.textContent = "☀️Tema Claro"
+    }
+});
+

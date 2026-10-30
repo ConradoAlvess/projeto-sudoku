@@ -1,3 +1,26 @@
+/*Define o tema principal do site = DarkMode */
+:root {
+    --background: #1a1a1a;
+    --text: linear-gradient(to right, #ffffff 35%, #808080 80%);
+    --button: #159a8c;
+    --button-text: #1a1a1a;
+    --timer-text: #64d8cb;
+    --dificuldade-text: #64d8cb;
+    --linha-board: 3px solid #159a8c;
+}
+/*Define o tema secundario do site = LightMode */
+.light-mode {
+    --background: #adadad;
+    --text: linear-gradient(to right, #181c29 35%, #2c2c2c 80%);
+    --button: #000000;
+    --button-text: #ffffff;
+    --border: none;
+    --timer-text: #000000;
+    --dificuldade-text: #000000;
+    --linha-board: 4px solid #000000;
+}
+
+
 /* Remove margens e configurações padrão do navegador,
 padronizando o layout e a fonte do projeto */
 *{
@@ -10,10 +33,11 @@ padronizando o layout e a fonte do projeto */
 /* Configura o fundo da página e centraliza
 todo o conteúdo principal do jogo */
 body{
-    background:#1a1a1a;
+    background: var(--background);
     display:flex;
     justify-content:center;
     padding:20px;
+    transition: background-color 0.5s ease, color 0.5s ease;
 }
 /*Container principal que limita a largura do jogo
 e mantém tudo organizado no centro da tela */
@@ -39,9 +63,9 @@ o seletor de dificuldade e o cronômetro */
 /* Personaliza o título do jogo utilizando
 um gradiente para dar aparência moderna */
 .titulo-h1{
-    font-size: 40px;
+    font-size: 45px;
      /* Aplica o gradiente de branco para cinza */
-    background: linear-gradient(to right, #ffffff 35%, #808080 80%);
+    background: var(--text);
     font-weight: bold;
     /* Faz o gradiente aparecer apenas dentro das letras */
     -webkit-background-clip: text;
@@ -49,21 +73,20 @@ um gradiente para dar aparência moderna */
     /* Deixa o preenchimento original do texto transparente */
     -webkit-text-fill-color: transparent;
     -webkit-text-fill-color: transparent;
+    transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 
 .buttons button {
     padding: 11px 16px;
-    color: #1a1a1a;
-    background-color: #159a8c;
-    border: 1px solid #159a8c;
+    color: var(--button-text);
+    background-color: var(--button);
+    border: var(--border);
     border-radius: 8px;
     font-size: 14px;
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.2s ease,
-                transform 0.2s ease,
-                box-shadow 0.2s ease;
+    transition: background-color 0.5s ease, color 0.5s ease;
     margin-bottom: 20px;
 }
 
@@ -88,10 +111,9 @@ um gradiente para dar aparência moderna */
 }
 
 .dicas{
-    
-    font-size: 40px;
+    font-size: 20px;
      /* Aplica o gradiente de branco para cinza */
-    background: linear-gradient(to right, #64d8cb 35%, #364632 80%);
+    background: var(--text);
     font-weight: bold;
     /* Faz o gradiente aparecer apenas dentro das letras */
     -webkit-background-clip: text;
@@ -104,20 +126,21 @@ um gradiente para dar aparência moderna */
 /**Personaliza o seletor de dificulda*e
 mantendo o mesmo estilo do restante da interface */
 #difficulty{
-    padding: 1px 15px;
+    padding: 1px 1px;
     font-size: 1rem;
     font-weight: 600;
-    color: #64d8cb;
-    background-color: #1a1a1a;
+    color: var(--dificuldade-text);
+    background-color: var(--background);
     border: 2px solid #444452;
     border-radius: 8px; 
+    transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 /* Destaca o cronômetro ut*lizando cor vibrante
 para*facilitar*a*visualização do tempo da partida */
 #timer{
     font-size: 2rem;
-    color:#64d8cb;
+    color:var(--timer-text);
     font-variant-numeric:tabular-nums;
     text-shadow: 0 0 10px rgba(2, 238, 120, 0.3);
 }
@@ -130,19 +153,7 @@ para*facilitar*a*visualização do tempo da partida */
     letter-spacing:2px;
 }
 
-.dicas{
-    color:white;
-    margin-bottom:20px;
-    text-align: center;
-    font-size: 18px;
-}
 
-#hints{
-    color:white;
-    margin-bottom:20px;
-    text-align: center;
-    font-size: 18px;
-}
 
 #board {
     display:grid;
@@ -186,31 +197,44 @@ para*facilitar*a*visualização do tempo da partida */
     box-sizing: border-box;
 }
 
-/* Linha vertical entre os blocos */
+/* Linha board entre os blocos */
 .celula:nth-child(3n) {
-    border-right: 3px solid #159a8c;
+    border-right: var(--linha-board);
 }
 
 /* Linha horizontal entre os blocos */
 .celula:nth-child(n + 19):nth-child(-n + 27),
 .celula:nth-child(n + 46):nth-child(-n + 54),
 .celula:nth-child(n + 73):nth-child(-n + 81) {
-    border-bottom: 3px solid #159a8c;
+    border-bottom: var(--linha-board);
 }
 
 /* Contorno externo do tabuleiro */
 .celula:nth-child(-n + 9) {
-    border-top: 3px solid #159a8c;
+    border-top: var(--linha-board);
 }
 
 .celula:nth-child(9n + 1) {
-    border-left: 3px solid #159a8c;
+    border-left: var(--linha-board);
 }
 
 .celula:nth-child(9n) {
-    border-right: 3px solid #159a8c;
+    border-right: var(--linha-board);
 }
 
 .celula:nth-child(n + 73) {
     border-bottom: 3px solid #159a8c;
+}
+
+/*Botão para controlar o modo escuro ou claro do site*/
+#temaClaroEscuro{
+    display: flex;
+    padding: 2px 10px;
+    color: var(--timer-text);
+    background-color: var(--backgroud-none);
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: background-color 1s ease, color 1s ease;
 }

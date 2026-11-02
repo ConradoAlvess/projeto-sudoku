@@ -1,4 +1,8 @@
-/* Sistema visual: tokens compartilhados entre os temas */
+/* 
+   Tema escuro definido como tema padrão
+   Define todas as cores utilizadas no jogo
+   quando o usuário estiver usando o tema escuro.
+*/
 :root {
     color-scheme: dark;
     --background: #10171d;
@@ -17,7 +21,7 @@
     --radius: 18px;
     --transition: 160ms ease;
 }
-
+/* Tema claro sobrescreve as variáveis do :root quando a classe .light-mode é aplicada.*/
 .light-mode {
     color-scheme: light;
     --background: #eef3f4;
@@ -35,18 +39,28 @@
     --error: #f0b8bf;
 }
 
+/*
+   Faz com que largura e altura dos elementos considerem padding e bordas. 
+   Evita diferenças de cálculo entre navegadores.
+ */
 *,
 *::before,
 *::after {
     box-sizing: border-box;
 }
 
+/*
+   CONFIGURAÇÃO DA PÁGINA HTML Define tamanho mínimo e cor de fundo do documento.
+ */
 html {
     min-width: 320px;
     min-height: 100%;
     background: var(--background);
 }
 
+/*
+   Centraliza o conteúdo, aplica fundo, fonte padrão e transições do tema.
+ */
 body {
     min-height: 100vh;
     margin: 0;
@@ -61,6 +75,9 @@ body {
     transition: background-color var(--transition), color var(--transition);
 }
 
+/* 
+    Faz os controles herdarem a fonte padrão e remove alguns comportamentos nativos em dispositivos móveis.
+*/
 button,
 select {
     font: inherit;
@@ -70,6 +87,9 @@ button {
     -webkit-tap-highlight-color: transparent;
 }
 
+/* 
+    Caixa que envolve todos os elementos: título, tabuleiro, timer e botões.
+*/
 .container {
     width: min(100%, 570px);
     padding: clamp(16px, 4vw, 30px);
@@ -80,6 +100,9 @@ button {
     box-shadow: 0 20px 55px rgb(0 0 0 / 20%);
 }
 
+/*   
+   Define aparência do cabeçalho h1.
+*/
 .titulo-h1 {
     margin: 0 0 20px;
     color: var(--text);
@@ -89,6 +112,9 @@ button {
     line-height: 1.05;
 }
 
+/*
+    Contém seletor de dificuldade e cronômetro.
+*/
 .top {
     display: flex;
     justify-content: space-between;
@@ -97,6 +123,9 @@ button {
     margin: 16px 0;
 }
 
+/* 
+   Estilização do menu de escolha do nível.
+*/
 #difficulty {
     min-height: 42px;
     max-width: 65%;
@@ -108,7 +137,9 @@ button {
     font-weight: 650;
     cursor: pointer;
 }
-
+/*
+    Exibe o tempo decorrido da partida.
+*/
 #timer {
     color: var(--accent);
     font-size: clamp(1.45rem, 6vw, 2rem);
@@ -116,7 +147,9 @@ button {
     font-weight: 750;
     letter-spacing: 0.04em;
 }
-
+/*
+   Cria a grade 9x9 usando CSS Grid.
+*/
 #board {
     display: grid;
     grid-template-columns: repeat(9, minmax(0, 1fr));
@@ -130,6 +163,9 @@ button {
     box-shadow: 0 8px 22px rgb(0 0 0 / 12%);
 }
 
+/*
+   Define tamanho, alinhamento, aparência e comportamento visual de cada célula.
+*/
 .celula {
     display: flex;
     min-width: 0;
@@ -162,19 +198,31 @@ button {
     border-bottom: 2px solid var(--board-line);
 }
 
+/* 
+   Destaca a célula clicada pelo jogador.
+*/
 .celula.selecionada {
     background: var(--selected);
 }
 
+/* 
+   Destaca linha, coluna e bloco da célula atualmente selecionada.
+*/
 .celula.relacionada {
     background: var(--related);
 }
 
+/* 
+   Indica visualmente um valor inválido.
+*/
 .celula.erro {
     color: #fff;
     background: var(--error);
 }
 
+/*
+   Organiza os botões abaixo do tabuleiro.
+*/
 .buttons {
     display: flex;
     flex-wrap: wrap;
@@ -183,6 +231,9 @@ button {
     margin: 20px 0;
 }
 
+/* 
+   Novo jogo, resolver, apagar, dica etc.
+*/
 .buttons button {
     min-height: 44px;
     padding: 10px 16px;
@@ -196,17 +247,26 @@ button {
     transition: background-color var(--transition), box-shadow var(--transition), transform var(--transition);
 }
 
+/* 
+   Mudança de visual quando o mouse passa sobre os botões.
+*/
 .buttons button:hover {
     background: var(--accent-hover);
     box-shadow: 0 5px 14px rgb(0 0 0 / 16%);
     transform: translateY(-1px);
 }
 
+/* 
+   Simula um pressionamento.
+*/
 .buttons button:active {
     transform: translateY(0);
     box-shadow: none;
 }
 
+/* 
+   Alterna entre modo claro e escuro.
+*/
 #temaClaroEscuro {
     display: block;
     min-width: 44px;
@@ -221,6 +281,9 @@ button {
     transition: background-color var(--transition), color var(--transition), border-color var(--transition);
 }
 
+/*
+   Destaca o valor dentro da área de dicas.
+*/
 .dicas {
     margin: 14px 0 0;
     color: var(--text-muted);
@@ -228,12 +291,18 @@ button {
     font-weight: 650;
 }
 
+/* 
+   Destaca elementos quando navegados via teclado (Tab).
+*/
 .dicas span {
     color: var(--accent);
     font-variant-numeric: tabular-nums;
     font-weight: 800;
 }
 
+/* 
+   Otimiza espaçamento, tabuleiro e botões em telas menores que 420px.
+*/
 button:focus-visible,
 select:focus-visible,
 .celula:focus-visible {
@@ -274,6 +343,9 @@ select:focus-visible,
     }
 }
 
+/* 
+   Melhora a visualização abaixo de 350px.
+*/
 @media (max-width: 350px) {
     .container {
         padding-inline: 7px;
@@ -284,6 +356,9 @@ select:focus-visible,
     }
 }
 
+/* 
+   Respeita usuários que preferem menos movimento na interface.
+*/
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,

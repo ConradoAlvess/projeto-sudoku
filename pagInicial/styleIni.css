@@ -97,3 +97,59 @@ body {
     transform: translateY(-2px);
 }
 
+/* Pequeno menu de dificuldades que fica oculto até o usuario clicar no botão de novo jogo. */
+.dificuldades {
+
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+    transition: max-height 0.4s ease, opacity 0.3s ease;
+    padding: 10px;
+}
+
+/* Classe adcionada pelo Javascript para aparecer o menu de dificuldades */
+.dificuldades.ativo {
+    max-height: 300px;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Adcionando estilos e hover aos botões de dificuldade. */
+.btn-dificuldade {
+    padding: 12px;
+    border: 1px solid #31404a;
+    border-radius: 12px;
+    background: transparent;
+    color: var(--text);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-dificuldade:hover {
+    background: #233038;
+    border-color: var(--accent);
+    transform: translateY(-2px);
+}
+
+/* Adcionando cor a cada nível de dificulade. */
+.facil:hover {
+
+    color: #6cff95;
+}
+
+.medio:hover {
+
+    color: #ffe066;
+}
+
+.dificil:hover {
+
+    color: #ff7a7a;
+}
+

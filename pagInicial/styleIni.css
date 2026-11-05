@@ -153,3 +153,59 @@ body {
     color: #ff7a7a;
 }
 
+/* Adcionando estilo e hover no botão de colaboradores */
+.btn-colaboradores{
+    position: absolute;
+    top: 800px;
+    left: 10px;
+    width: 12rem;
+    height: 48px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.2s;
+    color: var(--accent);
+    
+    border: none;
+}
+.btn-colaboradores:hover {
+    background-color: var(--btn-colaboradores);
+    color: var(--surface-raised);
+    border-radius: 20px;
+    transition: 1s;
+}
+
+/* Adcionando estilo ao botão de escolha de tema darkmode ou lightmode */
+.btn-tema {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: var(--background);
+    color: var(--text);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-tema:hover {
+    transform: rotate(15deg);
+    border-color: var(--accent);
+}
+
+
+/* Responsividade */
+@media (max-width: 480px) {
+
+    .tela-inicial {
+
+        padding: 25px;
+    }
+
+    .titulo {
+
+        letter-spacing: 4px;
+    }
+}

@@ -45,3 +45,55 @@ body {
     background:radial-gradient(circle at top, rgba(49, 197, 173, 0.15), transparent 50%), var(--background);
     font-family:system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
+
+/* Criando o fundo azul escuro do container principal */
+.tela-inicial {
+    width: min(100%, 500px);
+    padding: 40px;
+    text-align: center;
+    background: var(--surface);
+    border-radius: var(--radius);
+    box-shadow: 0 20px 40px rgb(0 0 0 / 20%);
+}
+
+/* aumentando a font do título, deixando o nome do jogo destacado */
+.titulo {
+    color: var(--text);
+    font-size: clamp(3rem, 9vw, 5rem);
+    font-weight: 900;
+    letter-spacing: 8px;
+    margin-bottom: 16px;
+}
+
+/* Estilização do p em baixo do título */
+.descricao {
+    color: var(--text-muted);
+    font-size: 1rem;
+    margin-bottom: 35px;
+}
+
+/* Adcionado display flex ao menu do jogo */
+.menu-jogo {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Estilizando o botão de novo jogo do menu, e adcionando hover. */
+.btn-novo-jogo {
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    background: var(--accent);
+    color: #000;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-novo-jogo:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+}
+

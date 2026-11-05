@@ -1,0 +1,47 @@
+/* Criando variaveis globais, e atribuido cor para darkmode ou lightmode */
+:root{
+    color-scheme: dark;
+    --background: #1017*d;
+    --surface: #19232b;
+    --text: #f2f7f8;
+    --text-muted: #a5b5bd;
+    --accent: #31c5ad;
+    --accent-hover: #43d7bf;
+    --btn-colaboradores: #19232b;
+    --radius: 18px;
+    --transition: 200ms ease;
+}
+
+
+.light-mode {
+    color-scheme: light;
+    --background: #eef3f4;
+    --surface: #ffffff;
+    --surface-raised: #f4f8f9;
+    --text: #17262d;
+    --text-muted: #53656e;
+    --accent: #087f73;
+    --accent-hover: #06685f;
+     --btn-colaboradores: #19232b;
+    --radius: 18px;
+    --transition: 200ms ease;
+}
+
+/* Reset em toda a página */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: var(--background);
+}
+
+/* Centrlização da tela */
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background:radial-gradient(circle at top, rgba(49, 197, 173, 0.15), transparent 50%), var(--background);
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}

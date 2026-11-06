@@ -51,7 +51,7 @@ body {
     width: min(100%, 500px);
     padding: 40px;
     text-align: center;
-    background: var(--surface);
+    
     border-radius: var(--radius);
     box-shadow: 0 20px 40px rgb(0 0 0 / 20%);
 }
@@ -99,7 +99,6 @@ body {
 
 /* Pequeno menu de dificuldades que fica oculto até o usuario clicar no botão de novo jogo. */
 .dificuldades {
-
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -131,48 +130,48 @@ body {
     transition: var(--transition);
 }
 
-.btn-dificuldade:hover {
-    background: #233038;
-    border-color: var(--accent);
-    transform: translateY(-2px);
-}
+
 
 /* Adcionando cor a cada nível de dificulade. */
 .facil:hover {
 
     color: #6cff95;
+    background-color: #134419;
 }
 
 .medio:hover {
 
     color: #ffe066;
+    background-color: rgb(133, 124, 7);
 }
 
 .dificil:hover {
 
     color: #ff7a7a;
+    background-color: rgb(126, 26, 26);
 }
 
 /* Adcionando estilo e hover no botão de colaboradores */
 .btn-colaboradores{
     position: absolute;
     top: 800px;
-    left: 10px;
-    width: 12rem;
+    left: 1px;
+    width: 100%;
     height: 48px;
     font-size: 1.2rem;
     cursor: pointer;
     transition: 0.2s;
-    color: var(--accent);
-    
+    color: var(--text);
     border: none;
+    background-color: rgba(49, 49, 49, 0.5);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
-.btn-colaboradores:hover {
+/* .btn-colaboradores:hover {
     background-color: var(--btn-colaboradores);
     color: var(--surface-raised);
     border-radius: 20px;
     transition: 1s;
-}
+} */
 
 /* Adcionando estilo ao botão de escolha de tema darkmode ou lightmode */
 .btn-tema {

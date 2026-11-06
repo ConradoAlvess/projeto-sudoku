@@ -166,12 +166,12 @@ body {
     background-color: rgba(49, 49, 49, 0.5);
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
-/* .btn-colaboradores:hover {
-    background-color: var(--btn-colaboradores);
-    color: var(--surface-raised);
-    border-radius: 20px;
-    transition: 1s;
-} */
+
+
+.btn-colaboradores a{
+    text-decoration: none;
+    color: inherit;
+}
 
 /* Adcionando estilo ao botão de escolha de tema darkmode ou lightmode */
 .btn-tema {

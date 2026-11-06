@@ -37,6 +37,6 @@ Fernanda Paiva Lavado |
 Gabriel Oliveira Gonçalves |
 Gustavo Alves Conrado de Lima |
 
-https://conradoalvess.github.io/projeto-sudoku/
+https://conradoalvess.github.io/projeto-sudoku/pagInicial/
 
  

@@ -192,6 +192,11 @@ button {
     color: #fff;
     background: var(--error);
 }
+
+#teclado-numerico {
+    display: none;
+}
+
 /*
    Organiza os botões abaixo do tabuleiro.
 */
@@ -229,6 +234,22 @@ button {
    Simula um pressionamento.
 */
 .buttons button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* Craindo o link ao botão novo jogo e estilizando. */
+#new-game a{
+    text-decoration: none;
+    color: var(--accent-contrast);
+}
+
+#new-game a:hover{
+    box-shadow: 0 5px 14px rgb(0 0 0 / 16%);
+    transform: translateY(-1px);
+}
+
+#new-game a:active{
     transform: translateY(0);
     box-shadow: none;
 }
@@ -288,7 +309,7 @@ select:focus-visible,
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
     body {
         padding: 12px;
         place-items: start center;
@@ -318,6 +339,35 @@ select:focus-visible,
     .buttons button {
         padding-inline: 8px;
         font-size: 0.9rem;
+    }
+    /*Organiza os botões numéricos em formato de grade, fica posicionado logo abaixo do tabuleiro para facilitar o preenchimento das células. */
+    #teclado-numerico {
+        display: grid;
+        grid-template-columns: repeat(9, 1fr);
+        gap: 6px;
+        margin: 15px auto;
+        width: min(100%, 540px);
+    }
+
+    /* Define aparência visual dos números do teclado: cores, tamanho, bordas arredondadas e animações. */
+    .numero-btn {
+        height: 48px;
+        border: none;
+        border-radius: 8px;
+        background: var(--accent);
+        color: var(--accent-contrast);
+        font-size: 1.2rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .numero-btn:hover {
+        background: var(--accent-hover);
+    }
+
+    .numero-btn:active {
+        transform: scale(0.95);
     }
 }
 /* 

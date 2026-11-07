@@ -22,9 +22,24 @@
         <!-- Div onde o javascript cria as 81 célunas do Sudoku -->
         <div id="board"></div>
 
+        <!-- Teclado numérico para dispositivos móveis, permite inserir números no Sudoku sem depender do teclado virtual do celular. -->
+        <div id="teclado-numerico">
+            <button class="numero-btn">1</button>
+            <button class="numero-btn">2</button>
+            <button class="numero-btn">3</button>
+            <button class="numero-btn">4</button>
+            <button class="numero-btn">5</button>
+            <button class="numero-btn">6</button>
+            <button class="numero-btn">7</button>
+            <button class="numero-btn">8</button>
+            <button class="numero-btn">9</button>
+        </div>
+
         <!-- Div onde agrupa os botões do site -->
         <div class="buttons">
-            <button id="new-game">Novo Jogo</button>
+            <button id="new-game">
+                <a href="/projeto-sudoku/pagInicial/index.html">Novo Jogo</a>
+            </button>
             <button id="undo">Desfazer</button>
             <button id="erase">Apagar</button>
             <button id="hint">Dica</button>

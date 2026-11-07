@@ -1,4 +1,5 @@
 const tabuleiro = document.getElementById("board");
+const botoesNumeros = document.querySelectorAll(".numero-btn")
 
 let numeros = Array(81).fill(0);
 let celulaSelecionada = null;
@@ -268,5 +269,33 @@ btn.addEventListener("click", () => {
         localStorage.setItem("tema", "escuro");
         btn.textContent = "☀️Tema Claro"
     }
+});
+
+botoesNumeros.forEach(botao => {
+
+    botao.addEventListener("click", () => {
+
+        if (celulaSelecionada === null) {
+            alert("Selecione uma célula primeiro.");
+            return;
+        }
+
+        const numero = Number(botao.textContent);
+
+        const posicao =
+            Number(celulaSelecionada.dataset.posicao);
+
+        registrarAlteracao(
+            posicao,
+            numeros[posicao]
+        );
+
+        numeros[posicao] = numero;
+
+        atualizarTabuleiro();
+        destacarCelulas();
+
+    });
+
 });
 

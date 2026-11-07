@@ -151,11 +151,12 @@ body {
     background-color: rgb(126, 26, 26);
 }
 
-/* Adcionando estilo e hover no botão de colaboradores */
+/* Adcionando estilo e hover e deixando ele posicionado ao centro no botão de colaboradores */
 .btn-colaboradores{
     position: absolute;
     top: 800px;
-    left:400px;
+    left: 50%;
+    transform: translateX(-50%);
     width: 40%;
     height: 48px;
     font-size: 1.2rem;

@@ -1,4 +1,8 @@
 const tabuleiro = document.getElementById("board");
+
+/*
+    Armazena todos os botões numéricos do teclado, para que possam receber eventos de clique.
+*/
 const botoesNumeros = document.querySelectorAll(".numero-btn")
 
 let numeros = Array(81).fill(0);
@@ -271,27 +275,44 @@ btn.addEventListener("click", () => {
     }
 });
 
+/*
+    Percorre todos os botões do teclado e adiciona a funcionalidade de inserir o número na célula atualmente selecionada.
+*/
 botoesNumeros.forEach(botao => {
 
     botao.addEventListener("click", () => {
 
+        /*
+            Impede que o usuário insira números sem selecionar uma célula primeiro.
+        */
         if (celulaSelecionada === null) {
             alert("Selecione uma célula primeiro.");
             return;
         }
 
+        /*
+            Obtém o valor do botão pressionado.
+        */
         const numero = Number(botao.textContent);
 
-        const posicao =
-            Number(celulaSelecionada.dataset.posicao);
+        /*
+            Obtém a posição da célula selecionada dentro do tabuleiro.
+        */
+        const posicao = Number(celulaSelecionada.dataset.posicao);
 
-        registrarAlteracao(
-            posicao,
-            numeros[posicao]
-        );
+        /*
+            Salva a alteração no histórico para que a função Desfazer continue funcionando.
+        */
+        registrarAlteracao(posicao, numeros[posicao]);
 
+        /*
+            Atualiza o número da célula.
+        */
         numeros[posicao] = numero;
 
+        /*
+            Redesenha o tabuleiro e mantém os destaques visuais atualizados.
+        */
         atualizarTabuleiro();
         destacarCelulas();
 

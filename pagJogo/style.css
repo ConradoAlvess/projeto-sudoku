@@ -21,7 +21,9 @@
     --radius: 18px;
     --transition: 160ms ease;
 }
-/* Tema claro sobrescreve as variáveis do :root quando a classe .light-mode é aplicada.*/
+/*
+    Tema claro sobrescreve as variáveis do :root quando a classe .light-mode é aplicada.
+*/
 
 .light-mode {
     color-scheme: light;
@@ -193,6 +195,9 @@ button {
     background: var(--error);
 }
 
+/*
+    Mantém o teclado oculto em computadores, já que o usuário pode utilizar o teclado físico.
+*/
 #teclado-numerico {
     display: none;
 }
@@ -238,7 +243,9 @@ button {
     box-shadow: none;
 }
 
-/* Craindo o link ao botão novo jogo e estilizando. */
+/* 
+Craindo o link ao botão novo jogo e estilizando. 
+*/
 #new-game a{
     text-decoration: none;
     color: var(--accent-contrast);

@@ -155,15 +155,14 @@ body {
 .btn-colaboradores{
     position: absolute;
     top: 800px;
-    left: 1px;
-    width: 100%;
+    left:400px;
+    width: 40%;
     height: 48px;
     font-size: 1.2rem;
     cursor: pointer;
     transition: 0.2s;
     color: var(--text);
     border: none;
-    background-color: rgba(49, 49, 49, 0.5);
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 

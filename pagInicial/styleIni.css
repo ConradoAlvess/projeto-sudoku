@@ -1,18 +1,20 @@
-/* Criando variaveis globais, e atribuido cor para darkmode ou lightmode */
-:root{
+/* Variáveis globais do tema escuro */
+:root {
     color-scheme: dark;
-    --background: #1017*d;
+    --background: #10171d;
     --surface: #19232b;
+    --surface-raised: #202d36;
     --text: #f2f7f8;
     --text-muted: #a5b5bd;
     --accent: #31c5ad;
     --accent-hover: #43d7bf;
-    --btn-colaboradores: #19232b;
+    --accent-contrast: #09211d;
+    --line: #3c4d57;
     --radius: 18px;
     --transition: 200ms ease;
 }
 
-
+/* Variáveis do tema claro */
 .light-mode {
     color-scheme: light;
     --background: #eef3f4;
@@ -22,17 +24,15 @@
     --text-muted: #53656e;
     --accent: #087f73;
     --accent-hover: #06685f;
-     --btn-colaboradores: #19232b;
-    --radius: 18px;
-    --transition: 200ms ease;
+    --accent-contrast: #ffffff;
+    --line: #c6d2d6;
 }
 
-/* Reset em toda a página */
+/* Reset global */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: var(--background);
 }
 
 /* Centrlização da tela */
@@ -42,16 +42,24 @@ body {
     justify-content: center;
     align-items: center;
     padding: 20px;
-    background:radial-gradient(circle at top, rgba(49, 197, 173, 0.15), transparent 50%), var(--background);
+    background: radial-gradient(
+    circle at top,
+    color-mix(in srgb, var(--accent) 15%, transparent),
+    transparent 50%
+    ), var(--background);
+
+    transition: background var(--transition), color var(--transition);
     font-family:system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 /* Criando o fundo azul escuro do container principal */
 .tela-inicial {
+    position: relative;
     width: min(100%, 500px);
     padding: 40px;
     text-align: center;
-    
+    background: var(--surface);
+    border: 1px solid var(--line);
     border-radius: var(--radius);
     box-shadow: 0 20px 40px rgb(0 0 0 / 20%);
 }
@@ -85,7 +93,7 @@ body {
     border: none;
     border-radius: 12px;
     background: var(--accent);
-    color: #000;
+    color: var(--accent-contrast);
     font-size: 1.1rem;
     font-weight: 700;
     cursor: pointer;
@@ -120,7 +128,7 @@ body {
 /* Adcionando estilos e hover aos botões de dificuldade. */
 .btn-dificuldade {
     padding: 12px;
-    border: 1px solid #31404a;
+    border: 1px solid var(--line);
     border-radius: 12px;
     background: transparent;
     color: var(--text);
@@ -130,46 +138,53 @@ body {
     transition: var(--transition);
 }
 
+.btn-dificuldade:active {
+    transform: scale(0.98);
+}
 
-
+.btn-novo-jogo:active {
+    transform: scale(0.98);
+}
 /* Adcionando cor a cada nível de dificulade. */
+/* Efeito visual da dificuldade fácil */
 .facil:hover {
-
     color: #6cff95;
     background-color: #134419;
+    border-color: #6cff95;
 }
 
+/* Efeito visual da dificuldade média */
 .medio:hover {
-
     color: #ffe066;
-    background-color: rgb(133, 124, 7);
+    background-color: #514900;
+    border-color: #ffe066;
 }
 
+/* Efeito visual da dificuldade difícil */
 .dificil:hover {
-
     color: #ff7a7a;
-    background-color: rgb(126, 26, 26);
+    background-color: #4e1717;
+    border-color: #ff7a7a;
 }
 
 /* Adcionando estilo e hover e deixando ele posicionado ao centro no botão de colaboradores */
-.btn-colaboradores{
-    position: absolute;
-    top: 800px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 40%;
-    height: 48px;
-    cursor: pointer;
+.btn-colaboradores {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 10px;
+    color: var(--text-muted);
+    background: transparent;
     border: none;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 0.9rem;
+    text-decoration: none;
+    opacity: 0.8;
+    transition: var(--transition);
 }
 
-
-.btn-colaboradores a{
-    font-size: 0.9rem;
-    opacity: 0.7;
-    text-decoration: none;
-    color: var(--text);
+.btn-colaboradores:hover {
+    color: var(--accent);
+    opacity: 1;
 }
 
 /* Adcionando estilo ao botão de escolha de tema darkmode ou lightmode */
@@ -194,16 +209,37 @@ body {
 }
 
 
-/* Responsividade */
+/* Responsividade para dispositivos móveis */
 @media (max-width: 480px) {
 
-    .tela-inicial {
+    body {
+        padding: 12px;
+    }
 
-        padding: 25px;
+    .tela-inicial {
+        width: 100%;
+        padding: 28px 20px;
     }
 
     .titulo {
-
+        font-size: clamp(2.5rem, 12vw, 3.5rem);
         letter-spacing: 4px;
+    }
+
+    .descricao {
+        font-size: 0.92rem;
+        margin-bottom: 25px;
+    }
+
+    .btn-tema {
+        top: 12px;
+        right: 12px;
+        width: 42px;
+        height: 42px;
+    }
+
+    .btn-colaboradores {
+        font-size: 0.8rem;
+        margin-top: 24px;
     }
 }

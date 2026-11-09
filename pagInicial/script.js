@@ -42,31 +42,31 @@ if (temaSalvo === "claro") {
 
 }
 
-// Botões dificuldade
-const btnFacil = document.querySelector(".facil");
-
-const btnMedio = document.querySelector(".medio");
-
-const btnDificil = document.querySelector(".dificil");
+// Botões de dificuldade
+const botoesDificuldade = document.querySelectorAll(".btn-dificuldade");
 
 // Salva a dificuldade escolhida e vai para a tela do jogo.
 function iniciarJogo(dificuldade) {
 
-    
-    localStorage.setItem(
-        "dificuldadeSudoku",
-        dificuldade
-    );
+    const dificuldadesValidas = ["facil", "medio", "dificil"];
 
-    
+    if (!dificuldadesValidas.includes(dificuldade)) {
+        return;
+    }
+
+    localStorage.setItem("dificuldadeSudoku", dificuldade);
+
     window.location.href = "../pagJogo/sudoku.html";
-
 }
 
 // Eventos dos botões de dificuldade
-btnFacil.addEventListener("click", () => {
+botoesDificuldade.forEach(botao => {
 
-    iniciarJogo("facil");
+    botao.addEventListener("click", () => {
+
+        iniciarJogo(botao.classList[1]);
+
+    });
 
 });
 

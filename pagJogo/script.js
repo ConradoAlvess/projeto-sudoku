@@ -5,8 +5,188 @@ const tabuleiro = document.getElementById("board");
 */
 const botoesNumeros = document.querySelectorAll(".numero-btn")
 
-let numeros = Array(81).fill(0);
+const solucaoSudoku = gerarSudoku();
+
+let numeros = aplicarDificuldade([...solucaoSudoku]);
 let celulaSelecionada = null;
+let numerosIniciais = [...numeros];
+let celulasFixas = numeros.map(numero => numero !== 0);
+let dicasDisponiveis = 3;
+const contadorDicas = document.getElementById("hints");
+
+
+function embaralhar(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+
+    return array;
+}
+
+
+function gerarSudoku() {
+    const base = 3;
+    const lado = base * base;
+
+    const padrao = (linha, coluna) =>
+        (base * (linha % base) + Math.floor(linha / base) + coluna) % lado;
+
+    const grupos = [0, 1, 2];
+
+    const linhas = embaralhar([...grupos]).flatMap(grupo =>
+        embaralhar([...grupos]).map(linha => grupo * base + linha)
+    );
+
+    const colunas = embaralhar([...grupos]).flatMap(grupo =>
+        embaralhar([...grupos]).map(coluna => grupo * base + coluna)
+    );
+
+    const numerosEmbaralhados = embaralhar([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+
+    const sudoku = [];
+
+    for (const linha of linhas) {
+        for (const coluna of colunas) {
+            const valor = padrao(linha, coluna);
+            sudoku.push(numerosEmbaralhados[valor]);
+        }
+    }
+
+    return sudoku;
+}
+
+
+function contarSolucoes(tabuleiro) {
+    let quantidadeSolucoes = 0;
+
+    function resolver() {
+        if (quantidadeSolucoes >= 2) {
+            return;
+        }
+
+        let melhorPosicao = -1;
+        let melhoresCandidatos = null;
+
+        for (let i = 0; i < 81; i++) {
+            if (tabuleiro[i] !== 0) {
+                continue;
+            }
+
+            const linha = Math.floor(i / 9);
+            const coluna = i % 9;
+            const candidatos = [];
+
+            for (let numero = 1; numero <= 9; numero++) {
+                let valido = true;
+
+                for (let j = 0; j < 9; j++) {
+                    if (
+                        tabuleiro[linha * 9 + j] === numero ||
+                        tabuleiro[j * 9 + coluna] === numero
+                    ) {
+                        valido = false;
+                        break;
+                    }
+                }
+
+                if (!valido) continue;
+
+                const inicioLinha = Math.floor(linha / 3) * 3;
+                const inicioColuna = Math.floor(coluna / 3) * 3;
+
+                for (let l = inicioLinha; l < inicioLinha + 3; l++) {
+                    for (let c = inicioColuna; c < inicioColuna + 3; c++) {
+                        if (tabuleiro[l * 9 + c] === numero) {
+                            valido = false;
+                        }
+                    }
+                }
+
+                if (valido) {
+                    candidatos.push(numero);
+                }
+            }
+
+            if (candidatos.length === 0) {
+                return;
+            }
+
+            if (
+                melhoresCandidatos === null ||
+                candidatos.length < melhoresCandidatos.length
+            ) {
+                melhorPosicao = i;
+                melhoresCandidatos = candidatos;
+            }
+        }
+
+        if (melhorPosicao === -1) {
+            quantidadeSolucoes++;
+            return;
+        }
+
+        for (const numero of melhoresCandidatos) {
+            tabuleiro[melhorPosicao] = numero;
+
+            resolver();
+
+            tabuleiro[melhorPosicao] = 0;
+
+            if (quantidadeSolucoes >= 2) {
+                return;
+            }
+        }
+    }
+
+    resolver();
+
+    return quantidadeSolucoes;
+}
+
+
+function aplicarDificuldade(sudoku) {
+    const dificuldade = localStorage.getItem("dificuldadeSudoku");
+
+    const quantidadeNumeros = {
+        facil: 55,
+        medio: 35
+    };
+
+    // O modo difícil começa completamente vazio.
+    if (dificuldade === "dificil") {
+        return Array(81).fill(0);
+    }
+
+    const quantidade = quantidadeNumeros[dificuldade] ?? 55;
+
+    const posicoes = embaralhar(
+        Array.from({ length: 81 }, (_, i) => i)
+    );
+
+    const tabuleiro = [...sudoku];
+    let quantidadeAtual = 81;
+
+    for (const posicao of posicoes) {
+        if (quantidadeAtual <= quantidade) {
+            break;
+        }
+
+        const numeroOriginal = tabuleiro[posicao];
+
+        tabuleiro[posicao] = 0;
+
+        if (contarSolucoes([...tabuleiro]) === 1) {
+            quantidadeAtual--;
+        } else {
+            tabuleiro[posicao] = numeroOriginal;
+        }
+    }
+
+    return tabuleiro;
+}
+
 
 function criarTabuleiro() {
     for (let i = 0; i < 81; i++) {
@@ -119,6 +299,10 @@ document.addEventListener("keydown", function(event) {
     const posicao =
         Number(celulaSelecionada.dataset.posicao);
 
+    if (celulasFixas[posicao]) {
+        return;
+    }
+
     if (event.key >= "1" && event.key <= "9") {
         registrarAlteracao(posicao, numeros[posicao]);
         numeros[posicao] = Number(event.key);
@@ -183,17 +367,10 @@ function registrarAlteracao(posicao, numeroAnterior) {
 }
 
 // Novo jogo: limpa o tabuleiro e reinicia o relógio
-botaoNovoJogo.addEventListener("click", function() {
-    numeros.fill(0);
-    celulaSelecionada = null;
-    historico = [];
 
-    reiniciarTemporizador();
-    atualizarTabuleiro();
-    destacarCelulas();
-});
 
 // Desfazer: recupera a última alteração
+
 botaoDesfazer.addEventListener("click", function() {
     if (historico.length === 0) {
         alert("Não há alterações para desfazer.");
@@ -202,13 +379,19 @@ botaoDesfazer.addEventListener("click", function() {
 
     const ultimaAlteracao = historico.pop();
 
+    if (celulasFixas[ultimaAlteracao.posicao]) {
+        return;
+    }
+
     numeros[ultimaAlteracao.posicao] = ultimaAlteracao.numero;
 
     atualizarTabuleiro();
     destacarCelulas();
 });
 
+
 // Apagar: remove o número da célula selecionada
+
 botaoApagar.addEventListener("click", function() {
     if (celulaSelecionada === null) {
         alert("Selecione uma célula primeiro.");
@@ -217,6 +400,10 @@ botaoApagar.addEventListener("click", function() {
 
     const posicao = Number(celulaSelecionada.dataset.posicao);
 
+    if (celulasFixas[posicao]) {
+        return;
+    }
+
     registrarAlteracao(posicao, numeros[posicao]);
     numeros[posicao] = 0;
 
@@ -224,9 +411,40 @@ botaoApagar.addEventListener("click", function() {
     destacarCelulas();
 });
 
-// Dica: informa como funciona a regra do Sudoku
+// Dica: preenche a célula selecionada com a resposta correta
 botaoDica.addEventListener("click", function() {
-    alert("Dica: use números de 1 a 9, sem repeti-los na mesma linha, coluna ou região 3×3.");
+    if (dicasDisponiveis <= 0) {
+        alert("Você não possui mais dicas disponíveis!");
+        return;
+    }
+
+    if (celulaSelecionada === null) {
+        alert("Selecione uma célula primeiro.");
+        return;
+    }
+
+    const posicao = Number(celulaSelecionada.dataset.posicao);
+
+    if (celulasFixas[posicao]) {
+        alert("Essa célula já possui um número inicial.");
+        return;
+    }
+
+    if (numeros[posicao] !== 0) {
+        alert("Selecione uma célula vazia para utilizar a dica.");
+        return;
+    }
+
+    registrarAlteracao(posicao, numeros[posicao]);
+
+    numeros[posicao] = solucaoSudoku[posicao];
+    dicasDisponiveis--;
+    contadorDicas.textContent = dicasDisponiveis;
+
+    atualizarTabuleiro();
+    destacarCelulas();
+
+    alert(`Dica utilizada! Restam ${dicasDisponiveis} dicas.`);
 });
 
 // Verificar: avisa se existem números repetidos
@@ -243,6 +461,15 @@ botaoVerificar.addEventListener("click", function() {
 
     if (numeros.includes(0)) {
         alert("O tabuleiro ainda não está completo. Continue jogando!");
+        return;
+    }
+
+    const respostaIncorreta = numeros.some(
+        (numero, indice) => numero !== solucaoSudoku[indice]
+    );
+
+    if (respostaIncorreta) {
+        alert("Existem números incorretos. Revise suas respostas!");
         return;
     }
 
@@ -300,6 +527,9 @@ botoesNumeros.forEach(botao => {
         */
         const posicao = Number(celulaSelecionada.dataset.posicao);
 
+        if (celulasFixas[posicao]) {
+            return;
+        }
         /*
             Salva a alteração no histórico para que a função Desfazer continue funcionando.
         */

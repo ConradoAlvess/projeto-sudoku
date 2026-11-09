@@ -1,0 +1,298 @@
+/*CSS do dev.html*/
+/* Variáveis globais */
+:root {
+    color-scheme: dark;
+
+    --background: #10171d;
+    --surface: #19232b;
+    --surface-raised: #202d36;
+
+    --text: #f2f7f8;
+    --text-muted: #a5b5bd;
+
+    --accent: #31c5ad;
+    --accent-hover: #43d7bf;
+    --accent-contrast: #09211d;
+
+    --line: #3c4d57;
+
+    --radius: 18px;
+    --transition: 200ms ease;
+}
+
+/* Reset global */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Configuração geral da página */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    background: radial-gradient(
+        circle at top,
+        rgba(49, 197, 173, 0.15),
+        transparent 50%
+    ), var(--background);
+
+    color: var(--text);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+/* Container principal */
+.container-principal {
+    width: min(100% - 40px, 1100px);
+    margin: 0 auto;
+    padding: 50px 0;
+    flex: 1;
+}
+
+/* Cabeçalho */
+.cabecalho {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+/* Título principal */
+.cabecalho h1 {
+    color: var(--text);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+/* Detalhe visual abaixo do título */
+.cabecalho h1::after {
+    content: "";
+    display: block;
+
+    width: 70px;
+    height: 4px;
+
+    margin: 14px auto 0;
+
+    background: var(--accent);
+    border-radius: 10px;
+}
+/* Descrição */
+.cabecalho p {
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+/* Grade dos desenvolvedores */
+.lista-desenvolvedores {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 22px;
+}
+
+/* Cartão individual */
+.card-desenvolvedor {
+    display: flex;
+    flex: 1 1 220px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+
+    max-width: 260px;
+    padding: 30px 20px;
+
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+
+    transition: var(--transition);
+}
+
+/* Efeito ao passar o mouse */
+.card-desenvolvedor:hover {
+    transform: translateY(-7px);
+
+    border-color: var(--accent);
+    background: var(--surface-raised);
+
+    box-shadow:
+        0 12px 25px rgba(0, 0, 0, 0.25),
+        0 0 15px rgba(49, 197, 173, 0.08);
+}
+
+/* Nome do desenvolvedor */
+.card-desenvolvedor h2 {
+    color: var(--text);
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+/* Curso */
+.card-desenvolvedor .curso {
+    padding: 5px 14px;
+
+    color: var(--accent);
+    background: rgba(49, 197, 173, 0.10);
+
+    border: 1px solid rgba(49, 197, 173, 0.25);
+    border-radius: 20px;
+
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+/* Container dos ícones */
+.container-icons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 8px;
+}
+
+/* Links sociais */
+.container-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    color: var(--text);
+    background: var(--background);
+    border: 1px solid var(--line);
+    border-radius: 50%;
+
+    font-size: 1.2rem;
+    text-decoration: none;
+
+    transition: var(--transition);
+}
+
+/* Efeito hover dos ícones */
+.container-icons a:hover {
+    color: var(--accent-contrast);
+    background: var(--accent);
+    border-color: var(--accent);
+    transform: translateY(-3px);
+}
+/* Rodapé */
+.footer {
+    width: 100%;
+    padding: 30px 20px;
+
+    text-align: center;
+
+    background: var(--surface);
+    border-top: 1px solid var(--line);
+}
+
+/* Título do rodapé */
+.footer h2 {
+    color: var(--text);
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+/* Links do rodapé */
+.footer-links {
+    margin: 20px 0;
+}
+
+.btn-voltar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    padding: 11px 22px;
+
+    color: var(--accent-contrast);
+    background: var(--accent);
+
+    border: 1px solid var(--accent);
+    border-radius: 10px;
+
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+
+    transition: var(--transition);
+}
+
+/* Efeito ao passar o mouse */
+.btn-voltar:hover {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(49, 197, 173, 0.2);
+}
+/* Destaque ao navegar pelo teclado */
+.btn-voltar:focus-visible {
+    outline: 3px solid var(--text);
+    outline-offset: 4px;
+}
+
+.footer-links a:hover {
+    color: var(--accent);
+    transform: translateY(-2px);
+}
+
+/* Direitos autorais */
+.copyright {
+    margin-top: 20px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+/* Responsividade para celulares */
+@media (max-width: 600px) {
+
+    .container-principal {
+        width: calc(100% - 24px);
+        padding: 35px 0;
+    }
+
+    .cabecalho {
+        margin-bottom: 30px;
+    }
+
+    .cabecalho h1 {
+        font-size: clamp(2rem, 9vw, 2.5rem);
+    }
+
+    .cabecalho p {
+        font-size: 0.9rem;
+    }
+
+    .lista-desenvolvedores {
+        gap: 16px;
+    }
+
+    .card-desenvolvedor {
+        flex: 1 1 100%;
+        max-width: 360px;
+        padding: 26px 18px;
+    }
+
+    .card-desenvolvedor h2 {
+        font-size: 1.05rem;
+    }
+
+    .footer {
+        padding: 25px 15px;
+    }
+}
+
+/* Reduzir animações para quem prefere menos movimento */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition: none !important;
+        animation: none !important;
+        scroll-behavior: auto !important;
+    }
+}

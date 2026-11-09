@@ -6,190 +6,110 @@
     <title>Desenvolvedores</title>
     <script src="https://kit.fontawesome.com/25b954d76c.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
-
-    <style>
-        /* Deixando toda a tela com margin 0 e backgroud marron */
-        *{
-            margin: 0;
-            background-color:rgb(29, 28, 28);
-        }
-
-        /* Deixando os nomes com display grid e o texto alinhado a esquerda */
-        .container-principal{
-            display: grid;
-            align-items: center;
-            text-align: left;
-        }
-
-        /* Deixando o título h1 ao centro  */
-        h1{
-            text-align: center;
-            color: bisque;
-            font-size: 50px;
-            font-family: 'Times New Roman', Times, serif;
-        }
-        
-        /* Estilizando os h2 com os nomes dos devs */
-        h2{
-            padding: 40px;
-            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-            color: bisque;
-            font-style: italic;
-        }
-
-        /* Alinhando os icons na mesma linha com o display inline */
-        .container-icons{
-            display: inline;
-            margin: 0px 138px;
-        }
-
-        a{
-            text-decoration: none;
-            font-size: 25px;
-        }
-
-        /* Estilizando os ícons com backgroud e hover */
-         .fa-linkedin{
-            color: rgb(11, 11, 122);
-            transition: 0.90s;
-         }
-
-         .fa-linkedin:hover{
-            transform: scale(1.6);
-         }
-
-         .fa-github{
-            color: rgb(10, 10, 10);
-            transition: 0.90s;
-         }
-
-         .fa-github:hover{
-            transform: scale(1.6);
-         }
-
-        /* Estilizando o hr */
-        hr{
-            border: none;
-            height: 1px;
-            background: #ddd;
-            margin: 30px 0;
-            box-shadow: 0 8px 10px 2px rgba(0,0,0,0.5);
-         }
-
-        /* Estilizando o footer */
-        .footer{
-        
-        color: #fff;
-        padding: 20px;
-        text-align: center;
-        box-shadow: 0 -10px 20px rgba(0,0,0,0.2);
-        }
-
-        .footer-links{
-            margin: 25px 0;
-        }
-
-        .footer-links a{
-            color: #fff;
-            text-decoration: none;
-            margin: 0 15px;
-            transition: 0.3s;
-        }
-
-        .footer-links a:hover{
-            color: bisque;
-            padding-left: 4px;
-        }
-
-        .copyright{
-            margin-top: 20px;
-            font-size: 0.9rem;
-            opacity: 0.7;
-        }
-    </style>
 </head>
 <body>
 
-    <div class="container-principal">
-        <h1>Desenvolvedores</h1>
+    <main class="container-principal">
+        <header class="cabecalho">
+            <h1>Desenvolvedores</h1>
+            <p>Conheça as pessoas por trás deste projeto.</p>
+        </header>
 
-        <h2>Breno Cavalcante - CCp</h2>
-        
-        <div class="container-icons">
-            <a href="" class="link-linke">
-                <i class="fa-brands fa-linkedin"></i>
-            </a>
-        
-            <a href="https://github.com/brenocavalcante3902-lab" class="linke-git">
-                <i class="fa-brands fa-github"></i>
-            </a>
-        </div>
-        <hr>
+        <section class="lista-desenvolvedores">
 
-        <h2>Felipe Miguel Silva - ADS</h2>
+            <article class="card-desenvolvedor">
+                <h2>Breno Cavalcante</h2>
+                <p class="curso">CCP</p>
 
-        <div class="container-icons">
-            <a href="" class="link-linke">
-                <i class="fa-brands fa-linkedin"></i>
-            </a>
-            <a href="https://github.com/Felipe-code805"class="linke-git">
-            
-                <i class="fa-brands fa-github"></i>
-            </a>
-        </div>
-        <hr>
+                <div class="container-icons">
+                    <!-- Adicione o LinkedIn quando tiver o endereço -->
+                    <a href="https://github.com/brenocavalcante3902-lab"
+                       class="link-github"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       aria-label="GitHub de Breno">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                </div>
+            </article>
 
-        <h2>Fernanda Paiva Lavado - ADS</h2>
+            <article class="card-desenvolvedor">
+                <h2>Felipe Miguel Silva</h2>
+                <p class="curso">ADS</p>
 
-        <div class="container-icons">
-            <a href="" class="link-linke">
-                <i class="fa-brands fa-linkedin"></i>
-            </a>
-        
-            <a href="https://github.com/8fntxgy6pt-oss" class="linke-git">
-                <i class="fa-brands fa-github"></i>
-            </a>
-        </div>
-        <hr>
+                <div class="container-icons">
+                    <a href="https://github.com/Felipe-code805"
+                       class="link-github"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       aria-label="GitHub de Felipe">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                </div>
+            </article>
 
-        <h2>Gabriel Oliveira Gonçalves - ADS</h2>
+            <article class="card-desenvolvedor">
+                <h2>Fernanda Paiva Lavado</h2>
+                <p class="curso">ADS</p>
 
-        <div class="container-icons">
-            <a href="" >
-                <i class="fa-brands fa-linkedin"></i>
-            </a>
-        
-            <a href="https://github.com/Gabriel-ads2026" class="linke-git">
-                <i class="fa-brands fa-github"></i>
-            </a>
-        </div>
-        <hr>
+                <div class="container-icons">
+                    <a href="https://github.com/8fntxgy6pt-oss"
+                       class="link-github"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       aria-label="GitHub de Fernanda">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                </div>
+            </article>
 
-        <h2>Gustavo Alves Conrado de Lima - CCp</h2>
+            <article class="card-desenvolvedor">
+                <h2>Gabriel Oliveira Gonçalves</h2>
+                <p class="curso">ADS</p>
 
-        <div class="container-icons">
-            <a href="" class="link-linke">
-                <i class="fa-brands fa-linkedin"></i>
-            </a>
-        
-            <a href="https://github.com/ConradoAlvess" class="linke-git">
-                <i class="fa-brands fa-github"></i>
-            </a>
-        </div>
-        <hr>
-    </div>
+                <div class="container-icons">
+                    <a href="https://github.com/Gabriel-ads2026"
+                       class="link-github"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       aria-label="GitHub de Gabriel">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                </div>
+            </article>
 
-    <div class="footer">
+            <article class="card-desenvolvedor">
+                <h2>Gustavo Alves Conrado de Lima</h2>
+                <p class="curso">CCP</p>
+
+                <div class="container-icons">
+                    <a href="https://github.com/ConradoAlvess"
+                       class="link-github"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       aria-label="GitHub de Gustavo">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                </div>
+            </article>
+
+        </section>
+    </main>
+
+    <footer class="footer">
         <h2>Obrigado pela sua visita!</h2>
 
         <div class="footer-links">
-            <a href="index.html">Início</a>
+            <a href="index.html" class="btn-voltar">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Voltar ao jogo</span>
+            </a>
         </div>
 
         <p class="copyright">
             © 2026 Todos os direitos reservados.
         </p>
-    </div>
-   
+    </footer>
+
 </body>
 </html>

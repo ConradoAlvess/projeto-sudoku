@@ -305,6 +305,68 @@ select:focus-visible,
     z-index: 1;
 }
 
+/* ===== Modal de vitória ===== */
+[hidden] { display: none !important; }
+
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: grid;
+    place-items: center;
+    padding: 16px;
+    background: rgb(0 0 0 / 60%);
+}
+
+.modal-caixa {
+    width: min(100%, 420px);
+    padding: 28px 24px;
+    text-align: center;
+    color: var(--text);
+    background: var(--surface);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius);
+    box-shadow: 0 20px 55px rgb(0 0 0 / 40%);
+}
+
+.modal-caixa h2 { margin: 0 0 12px; color: var(--accent); font-size: 1.6rem; }
+.modal-caixa p { margin: 0 0 20px; color: var(--text-muted); line-height: 1.5; }
+.modal-acoes { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.modal-caixa button {
+    min-height: 44px;
+    padding: 10px 14px;
+    color: var(--accent-contrast);
+    background: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+}
+.modal-caixa button:hover { background: var(--accent-hover); }
+.modal-caixa button.secundario { color: var(--text); background: transparent; border-color: var(--line); }
+
+/* ===== Jogo travado após a vitória ===== */
+#board.travado { pointer-events: none; opacity: 0.85; }
+
+button:disabled,
+.buttons button:disabled,
+.numero-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.status-jogo {
+    margin: 14px 0 0;
+    color: var(--accent);
+    font-weight: 700;
+}
+
+/* 
+   Ajustes aplicados em telas grandes (desktop).
+   Aumenta a largura máxima do conteúdo para melhor aproveitamento do espaço.
+*/
 @media (min-width: 900px) {
     .container {
         width: min(100%, 700px);
@@ -316,6 +378,10 @@ select:focus-visible,
     }
 }
 
+/*
+   Ajustes para tablets e celulares.
+   Reduz espaçamentos e reorganiza elementos para telas menores.
+*/
 @media (max-width: 800px) {
     body {
         padding: 12px;
@@ -380,7 +446,8 @@ select:focus-visible,
     }
 }
 /* 
-   Melhora a visualização abaixo de 350px.
+   Ajustes para dispositivos extremamente pequenos (até 350px).
+   Evita quebra de layout em celulares compactos.
 */
 @media (max-width: 350px) {
     body {
@@ -396,7 +463,10 @@ select:focus-visible,
     }
 }
 
-/* Respeita usuários que preferem menos movimento na interface. */
+/* 
+   Respeita a preferência de acessibilidade do usuário.
+   Reduz animações e transições do site.
+*/
 
 @media (prefers-reduced-motion: reduce) {
     *,
@@ -407,63 +477,4 @@ select:focus-visible,
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
     }
-}
-
-
-/* ===== Modal de vitória ===== */
-[hidden] { display: none !important; }
-
-.modal {
-    position: fixed;
-    inset: 0;
-    z-index: 100;
-    display: grid;
-    place-items: center;
-    padding: 16px;
-    background: rgb(0 0 0 / 60%);
-}
-
-.modal-caixa {
-    width: min(100%, 420px);
-    padding: 28px 24px;
-    text-align: center;
-    color: var(--text);
-    background: var(--surface);
-    border: 1px solid var(--accent);
-    border-radius: var(--radius);
-    box-shadow: 0 20px 55px rgb(0 0 0 / 40%);
-}
-
-.modal-caixa h2 { margin: 0 0 12px; color: var(--accent); font-size: 1.6rem; }
-.modal-caixa p { margin: 0 0 20px; color: var(--text-muted); line-height: 1.5; }
-.modal-acoes { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-
-.modal-caixa button {
-    min-height: 44px;
-    padding: 10px 14px;
-    color: var(--accent-contrast);
-    background: var(--accent);
-    border: 1px solid var(--accent);
-    border-radius: 10px;
-    font-weight: 700;
-    cursor: pointer;
-}
-.modal-caixa button:hover { background: var(--accent-hover); }
-.modal-caixa button.secundario { color: var(--text); background: transparent; border-color: var(--line); }
-
-/* ===== Jogo travado após a vitória ===== */
-#board.travado { pointer-events: none; opacity: 0.85; }
-
-button:disabled,
-.buttons button:disabled,
-.numero-btn:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-    pointer-events: none;
-}
-
-.status-jogo {
-    margin: 14px 0 0;
-    color: var(--accent);
-    font-weight: 700;
 }

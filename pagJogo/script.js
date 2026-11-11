@@ -1,19 +1,22 @@
+// Elemento HTML que contém todas as células do tabuleiro Sudoku
 const tabuleiro = document.getElementById("board");
 
-/*
-    Armazena todos os botões numéricos do teclado, para que possam receber eventos de clique.
-*/
+
+// Armazena todos os botões numéricos do teclado, para que possam receber eventos de clique.
+
 const botoesNumeros = document.querySelectorAll(".numero-btn")
 
+// Armazena a solução completa do Sudoku gerado
 let solucaoSudoku = [];
 
-let numeros = Array(81).fill(0); // preenchido por iniciarPartida()
-let celulaSelecionada = null;
-let numerosIniciais = [...numeros];
-let celulasFixas = Array(81).fill(true); // bloqueado até a partida ficar pronta
-let partidaPronta = false;
-let dicasDisponiveis = 3;
-const contadorDicas = document.getElementById("hints");
+
+let numeros = Array(81).fill(0); // Estado atual do tabuleiro durante a partida
+let celulaSelecionada = null; // Guarda a célula atualmente selecionada pelo jogador
+let numerosIniciais = [...numeros]; // Salva o estado inicial do tabuleiro para consultas futuras
+let celulasFixas = Array(81).fill(true); // Define quais células são fixas (não podem ser alteradas pelo jogador)
+let partidaPronta = false; // Indica quando o jogo está pronto para interação
+let dicasDisponiveis = 3; // Quantidade de dicas disponíveis para o jogador
+const contadorDicas = document.getElementById("hints"); // Exibe na interface a quantidade restante de dicas
 
 // Controle de fim de jogo (declarados aqui porque atualizarTabuleiro já roda no carregamento)
 let jogoFinalizado = false;
@@ -28,7 +31,8 @@ const btnNao = document.getElementById("btn-nao");
 const caixaModal = document.getElementById("modal-caixa");
 const areaJogo = document.querySelector(".container");
 
-
+// Embaralha os elementos de um array aleatoriamente,
+// utilizado na geração de tabuleiros diferentes a cada partida.
 function embaralhar(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -39,11 +43,13 @@ function embaralhar(array) {
     return array;
 }
 
-
+// Gera um Sudoku completo e válido que servirá como base para a partida.
 function gerarSudoku() {
     const base = 3;
     const lado = base * base;
 
+    // Fórmula responsável por distribuir os números nas posições corretas
+    // mantendo as regras do Sudoku.
     const padrao = (linha, coluna) =>
         (base * (linha % base) + Math.floor(linha / base) + coluna) % lado;
 
@@ -59,6 +65,8 @@ function gerarSudoku() {
 
     const numerosEmbaralhados = embaralhar([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
+    // Cria uma matriz onde cada posição recebe um número válido
+    // formando a solução final do Sudoku.
     const sudoku = [];
 
     for (const linha of linhas) {
@@ -71,15 +79,19 @@ function gerarSudoku() {
     return sudoku;
 }
 
-
+// Conta quantas soluções possíveis existem para um tabuleiro.
+// É utilizada para garantir que o Sudoku gerado possua solução única.
 function contarSolucoes(tabuleiro) {
     let quantidadeSolucoes = 0;
 
+    // Algoritmo recursivo responsável por tentar resolver o Sudoku.
     function resolver() {
         if (quantidadeSolucoes >= 2) {
             return;
         }
 
+        // Procura a próxima célula vazia que possui menos possibilidades,
+        // tornando a busca por soluções mais eficiente.
         let melhorPosicao = -1;
         let melhoresCandidatos = null;
 
@@ -159,7 +171,7 @@ function contarSolucoes(tabuleiro) {
     return quantidadeSolucoes;
 }
 
-
+// Remove números do tabuleiro completo conforme a dificuldade escolhida.
 function aplicarDificuldade(sudoku) {
     const dificuldade = localStorage.getItem("dificuldadeSudoku");
 
@@ -182,6 +194,7 @@ function aplicarDificuldade(sudoku) {
     const tabuleiro = [...sudoku];
     let quantidadeAtual = 81;
 
+    // Garante que os números removidos não criem múltiplas soluções.
     for (const posicao of posicoes) {
         if (quantidadeAtual <= quantidade) {
             break;
@@ -201,7 +214,7 @@ function aplicarDificuldade(sudoku) {
     return tabuleiro;
 }
 
-
+// Cria dinamicamente as 81 células do tabuleiro na página.
 function criarTabuleiro() {
     for (let i = 0; i < 81; i++) {
         const celula = document.createElement("div");
@@ -211,6 +224,7 @@ function criarTabuleiro() {
         celula.dataset.linha = Math.floor(i / 9);
         celula.dataset.coluna = i % 9;
 
+        // Ao clicar em uma célula, ela passa a ser a posição ativa para inserção de números.
         celula.addEventListener("click", function() {
             if (!partidaPronta) {
                 return;
@@ -226,11 +240,13 @@ function criarTabuleiro() {
     }
 }
 
+// Atualiza o conteúdo do tabuleiro e verifica se o jogador venceu.
 function atualizarTabuleiro() {
     atualizarCelulas();
     verificarVitoria();
 }
 
+// Reescreve os números exibidos em cada célula do tabuleiro.
 function atualizarCelulas() {
     for (let i = 0; i < 81; i++) {
         tabuleiro.children[i].textContent =
@@ -240,9 +256,11 @@ function atualizarCelulas() {
     verificarRegras();
 }
 
+// Destaca a célula selecionada e sua linha/coluna para facilitar a jogabilidade.
 function destacarCelulas() {
     const celulas = tabuleiro.children;
 
+    // Remove destaques anteriores antes de aplicar novos.
     for (let i = 0; i < 81; i++) {
         celulas[i].classList.remove("selecionada");
         celulas[i].classList.remove("relacionada");
@@ -273,7 +291,7 @@ function destacarCelulas() {
     celulaSelecionada.classList.add("selecionada");
 }
 
-
+// Verifica se existem números repetidos nas linhas, colunas ou regiões.
 function verificarRegras() {
     const celulas = tabuleiro.children;
 
@@ -305,6 +323,7 @@ function verificarRegras() {
                 Math.floor(linhaI / 3) === Math.floor(linhaJ / 3) &&
                 Math.floor(colunaI / 3) === Math.floor(colunaJ / 3);
 
+            // Marca visualmente as células que violam as regras do Sudoku.
             if (mesmaLinha || mesmaColuna || mesmaRegiao) {
                 celulas[i].classList.add("erro");
                 celulas[j].classList.add("erro");
@@ -313,7 +332,7 @@ function verificarRegras() {
     }
 }
 
-
+// Permite inserir e apagar números utilizando o teclado do computador.
 document.addEventListener("keydown", function(event) {
     if (celulaSelecionada === null) {
         return;
@@ -345,6 +364,7 @@ document.addEventListener("keydown", function(event) {
 criarTabuleiro();
 
 // 2) Depois do primeiro desenho da tela, o JavaScript gera o jogo (parte mais pesada)
+// Gera uma nova partida aplicando a dificuldade escolhida
 function iniciarPartida() {
     solucaoSudoku = gerarSudoku();
     numeros = aplicarDificuldade([...solucaoSudoku]);
@@ -355,15 +375,18 @@ function iniciarPartida() {
     atualizarTabuleiro();
 }
 
+// Exibe uma mensagem temporária enquanto o Sudoku está sendo preparado.
 mostrarStatus("Preparando o tabuleiro...");
+// Aguarda a interface ser desenhada antes de iniciar a geração do jogo.
 requestAnimationFrame(() => setTimeout(iniciarPartida, 0));
 
-
+// Elemento responsável por exibir o tempo de jogo na tela
 const temporizador = document.getElementById("timer");
 
 let tempo = 0;
 let intervalo = null;
 
+// Inicia a contagem de tempo da partida.
 function iniciarTemporizador() {
     if (intervalo !== null) {
         return;
@@ -381,6 +404,7 @@ function iniciarTemporizador() {
     }, 1000);
 }
 
+// Reinicia completamente o cronômetro para uma nova partida.
 function reiniciarTemporizador() {
     clearInterval(intervalo);
     intervalo = null;
@@ -388,14 +412,17 @@ function reiniciarTemporizador() {
     temporizador.textContent = "00:00";
 }
 
+// Referências aos botões de ações disponíveis durante a partida.
 const botaoNovoJogo = document.getElementById("new-game");
 const botaoDesfazer = document.getElementById("undo");
 const botaoApagar = document.getElementById("erase");
 const botaoDica = document.getElementById("hint");
 const botaoVerificar = document.getElementById("check");
 
+// Armazena as jogadas realizadas para permitir o uso da função Desfazer.
 let historico = [];
 
+// Salva o estado anterior da célula antes de qualquer modificação.
 function registrarAlteracao(posicao, numeroAnterior) {
     historico.push({
         posicao: posicao,
@@ -583,8 +610,10 @@ botoesNumeros.forEach(botao => {
 
 /* ===== Fim de jogo: revisão, vitória e travamento ===== */
 
+// Nomes amigáveis utilizados para exibir a dificuldade ao jogador.
 const nomesDificuldade = { facil: "Fácil", medio: "Médio", dificil: "Difícil" };
 
+// Mensagens exibidas de acordo com a dificuldade concluída.
 const elogios = {
     facil: "Um ótimo começo, continue assim!",
     medio: "Raciocínio afiado!",
@@ -620,11 +649,13 @@ function revisarTabuleiro() {
     return true;
 }
 
+// Exibe mensagens informativas abaixo do tabuleiro.
 function mostrarStatus(texto) {
     statusJogo.textContent = texto;
     statusJogo.hidden = false;
 }
 
+// Interrompe a contagem de tempo quando a partida termina.
 function pararTemporizador() {
     clearInterval(intervalo);
     intervalo = null;
@@ -671,6 +702,7 @@ function verificarVitoria() {
     setTimeout(mostrarVitoria, 400);
 }
 
+// Monta e exibe a mensagem final contendo tempo, dificuldade e desempenho.
 function mostrarVitoria() {
     let chave = localStorage.getItem("dificuldadeSudoku");
 

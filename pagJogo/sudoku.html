@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sudoku</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
 </head>
 <body>
     <!-- Criação do container principal -->
@@ -37,9 +36,7 @@
 
         <!-- Div onde agrupa os botões do site -->
         <div class="buttons">
-            <button id="new-game">
-                <a href="../pagInicial/index.html">Novo Jogo</a>
-            </button>
+            <button id="new-game" type="button">Novo Jogo</button>
             <button id="undo">Desfazer</button>
             <button id="erase">Apagar</button>
             <button id="hint">Dica</button>
@@ -48,8 +45,32 @@
         
         <!-- Exibe o contador de dicas restantes -->
         <p class="dicas">Dicas Restantes <span id="hints">3</span></p>
+
+        <!-- Mensagem de status (jogo concluído / tabuleiro com repetidos) -->
+        <p id="status-jogo" class="status-jogo" role="status" aria-live="polite" hidden></p>
         
     
     </div>
+
+    <!-- Modal de vitória: etapa 1 = mensagem, etapa 2 = deseja continuar? -->
+    <div id="modal-vitoria" class="modal" hidden>
+        <div id="modal-caixa" class="modal-caixa" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+            <div id="etapa-vitoria">
+                <h2 id="modal-titulo">🎉 Parabéns!</h2>
+                <p id="modal-mensagem"></p>
+                <button id="btn-continuar" type="button">Continuar</button>
+            </div>
+            <div id="etapa-pergunta" hidden>
+                <h2 id="modal-pergunta">Deseja continuar jogando?</h2>
+                <p>Escolha "Sim" para ir à seleção de dificuldade ou "Não" para ficar nesta tela.</p>
+                <div class="modal-acoes">
+                    <button id="btn-sim" type="button">Sim</button>
+                    <button id="btn-nao" type="button" class="secundario">Não</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- O JavaScript é carregado por último, depois do HTML e do CSS -->
+    <script src="script.js"></script>
 </body>
 </html>

@@ -5,14 +5,28 @@ const tabuleiro = document.getElementById("board");
 */
 const botoesNumeros = document.querySelectorAll(".numero-btn")
 
-const solucaoSudoku = gerarSudoku();
+let solucaoSudoku = [];
 
-let numeros = aplicarDificuldade([...solucaoSudoku]);
+let numeros = Array(81).fill(0); // preenchido por iniciarPartida()
 let celulaSelecionada = null;
 let numerosIniciais = [...numeros];
-let celulasFixas = numeros.map(numero => numero !== 0);
+let celulasFixas = Array(81).fill(true); // bloqueado até a partida ficar pronta
+let partidaPronta = false;
 let dicasDisponiveis = 3;
 const contadorDicas = document.getElementById("hints");
+
+// Controle de fim de jogo (declarados aqui porque atualizarTabuleiro já roda no carregamento)
+let jogoFinalizado = false;
+const statusJogo = document.getElementById("status-jogo");
+const modalVitoria = document.getElementById("modal-vitoria");
+const etapaVitoria = document.getElementById("etapa-vitoria");
+const etapaPergunta = document.getElementById("etapa-pergunta");
+const textoVitoria = document.getElementById("modal-mensagem");
+const btnContinuar = document.getElementById("btn-continuar");
+const btnSim = document.getElementById("btn-sim");
+const btnNao = document.getElementById("btn-nao");
+const caixaModal = document.getElementById("modal-caixa");
+const areaJogo = document.querySelector(".container");
 
 
 function embaralhar(array) {
@@ -198,6 +212,10 @@ function criarTabuleiro() {
         celula.dataset.coluna = i % 9;
 
         celula.addEventListener("click", function() {
+            if (!partidaPronta) {
+                return;
+            }
+
             celulaSelecionada = celula;
 
             iniciarTemporizador();
@@ -209,6 +227,11 @@ function criarTabuleiro() {
 }
 
 function atualizarTabuleiro() {
+    atualizarCelulas();
+    verificarVitoria();
+}
+
+function atualizarCelulas() {
     for (let i = 0; i < 81; i++) {
         tabuleiro.children[i].textContent =
             numeros[i] === 0 ? "" : numeros[i];
@@ -318,8 +341,22 @@ document.addEventListener("keydown", function(event) {
     }
 });
 
+// 1) Primeiro aparece a estrutura (HTML + CSS) com o tabuleiro vazio
 criarTabuleiro();
-atualizarTabuleiro();
+
+// 2) Depois do primeiro desenho da tela, o JavaScript gera o jogo (parte mais pesada)
+function iniciarPartida() {
+    solucaoSudoku = gerarSudoku();
+    numeros = aplicarDificuldade([...solucaoSudoku]);
+    numerosIniciais = [...numeros];
+    celulasFixas = numeros.map(numero => numero !== 0);
+    partidaPronta = true;
+
+    atualizarTabuleiro();
+}
+
+mostrarStatus("Preparando o tabuleiro...");
+requestAnimationFrame(() => setTimeout(iniciarPartida, 0));
 
 
 const temporizador = document.getElementById("timer");
@@ -464,16 +501,7 @@ botaoVerificar.addEventListener("click", function() {
         return;
     }
 
-    const respostaIncorreta = numeros.some(
-        (numero, indice) => numero !== solucaoSudoku[indice]
-    );
-
-    if (respostaIncorreta) {
-        alert("Existem números incorretos. Revise suas respostas!");
-        return;
-    }
-
-    alert("Parabéns! Você concluiu o jogo com êxito!");
+    verificarVitoria();
 });
 
 /* Controle de tema (Escuro/Claro) Permite ao usuário alternar entre os temas e salva a preferência no navegador usando localStorage, mantendo a escolha mesmo após fechar ou recarregar a página. */
@@ -482,7 +510,8 @@ botaoVerificar.addEventListener("click", function() {
 const btn = document.getElementById("temaClaroEscuro");
 
 // Verifica se o usuário havia escolhido o tema claro anteriormente
-if (localStorage.getItem("tema") === "claro") {
+// Usa a mesma chave da tela inicial (temaSudoku); "tema" é lida apenas por compatibilidade
+if ((localStorage.getItem("temaSudoku") || localStorage.getItem("tema")) === "claro") {
     document.body.classList.add("light-mode");
     btn.textContent = "🌙Tema Escuro"
 } else {
@@ -494,10 +523,10 @@ btn.addEventListener("click", () => {
     document.body.classList.toggle("light-mode");
      // Salva a escolha do usuário no navegador
     if (document.body.classList.contains("light-mode")) {
-        localStorage.setItem("tema", "claro");
+        localStorage.setItem("temaSudoku", "claro");
         btn.textContent = "🌙Tema Escuro"
     } else {
-        localStorage.setItem("tema", "escuro");
+        localStorage.setItem("temaSudoku", "escuro");
         btn.textContent = "☀️Tema Claro"
     }
 });
@@ -550,3 +579,142 @@ botoesNumeros.forEach(botao => {
 
 });
 
+
+
+/* ===== Fim de jogo: revisão, vitória e travamento ===== */
+
+const nomesDificuldade = { facil: "Fácil", medio: "Médio", dificil: "Difícil" };
+
+const elogios = {
+    facil: "Um ótimo começo, continue assim!",
+    medio: "Raciocínio afiado!",
+    dificil: "Impressionante: você resolveu tudo a partir de um tabuleiro vazio!"
+};
+
+// Revisão final: sem vazios e cada linha, coluna e bloco 3x3 com os números de 1 a 9.
+// (Não compara com a solução gerada, pois no modo difícil o tabuleiro vazio admite várias soluções válidas.)
+function revisarTabuleiro() {
+    if (numeros.includes(0)) {
+        return false;
+    }
+
+    for (let g = 0; g < 9; g++) {
+        const linha = new Set();
+        const coluna = new Set();
+        const bloco = new Set();
+
+        for (let k = 0; k < 9; k++) {
+            linha.add(numeros[g * 9 + k]);
+            coluna.add(numeros[k * 9 + g]);
+
+            const l = Math.floor(g / 3) * 3 + Math.floor(k / 3);
+            const c = (g % 3) * 3 + (k % 3);
+            bloco.add(numeros[l * 9 + c]);
+        }
+
+        if (linha.size !== 9 || coluna.size !== 9 || bloco.size !== 9) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+function mostrarStatus(texto) {
+    statusJogo.textContent = texto;
+    statusJogo.hidden = false;
+}
+
+function pararTemporizador() {
+    clearInterval(intervalo);
+    intervalo = null;
+}
+
+// Trava o tabuleiro e os botões; apenas "Novo Jogo" (e o tema) continuam ativos.
+function travarJogo() {
+    tabuleiro.classList.add("travado");
+
+    [botaoDesfazer, botaoApagar, botaoDica, botaoVerificar].forEach(botao => {
+        botao.disabled = true;
+    });
+
+    botoesNumeros.forEach(botao => {
+        botao.disabled = true;
+    });
+
+    celulaSelecionada = null;
+    destacarCelulas();
+    mostrarStatus("Jogo concluído! Clique em Novo Jogo para jogar novamente.");
+}
+
+function verificarVitoria() {
+    if (jogoFinalizado) {
+        return;
+    }
+
+    if (numeros.includes(0)) {
+        statusJogo.hidden = true;
+        return;
+    }
+
+    // Tabuleiro cheio: faz a revisão antes de declarar vitória
+    if (!revisarTabuleiro()) {
+        mostrarStatus("Tabuleiro completo, mas há números repetidos. Corrija as células em vermelho.");
+        return;
+    }
+
+    jogoFinalizado = true;
+    pararTemporizador();
+    travarJogo();
+
+    // Pequena pausa para o jogador ver o último número antes da mensagem
+    setTimeout(mostrarVitoria, 400);
+}
+
+function mostrarVitoria() {
+    let chave = localStorage.getItem("dificuldadeSudoku");
+
+    if (!nomesDificuldade[chave]) {
+        chave = "facil";
+    }
+
+    const dicasUsadas = 3 - dicasDisponiveis;
+    const textoDicas = dicasUsadas === 0
+        ? "sem usar nenhuma dica"
+        : `usando ${dicasUsadas} ${dicasUsadas === 1 ? "dica" : "dicas"}`;
+
+    textoVitoria.textContent =
+        `Você completou o Sudoku no modo ${nomesDificuldade[chave]} em ${temporizador.textContent}, ${textoDicas}. ${elogios[chave]}`;
+
+    etapaVitoria.hidden = false;
+    etapaPergunta.hidden = true;
+    caixaModal.setAttribute("aria-labelledby", "modal-titulo");
+    areaJogo.inert = true; // impede o foco no fundo enquanto a mensagem está aberta
+    modalVitoria.hidden = false;
+    btnContinuar.focus();
+}
+
+// Etapa 1 -> etapa 2 (pergunta)
+btnContinuar.addEventListener("click", function() {
+    etapaVitoria.hidden = true;
+    etapaPergunta.hidden = false;
+    caixaModal.setAttribute("aria-labelledby", "modal-pergunta");
+    btnSim.focus();
+});
+
+// Sim: vai para a seleção de dificuldade (menu já aberto)
+btnSim.addEventListener("click", function() {
+    window.location.href = "../pagInicial/index.html?novoJogo=1";
+});
+
+// Não: fecha a mensagem e mantém o jogo travado
+btnNao.addEventListener("click", function() {
+    areaJogo.inert = false;
+    modalVitoria.hidden = true;
+    botaoNovoJogo.focus();
+});
+
+// Novo Jogo: volta para a tela de seleção de dificuldade
+botaoNovoJogo.addEventListener("click", function() {
+    window.location.href = "../pagInicial/index.html?novoJogo=1";
+});

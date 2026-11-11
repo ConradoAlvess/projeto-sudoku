@@ -12,6 +12,11 @@ btnNovoJogo.addEventListener("click", () => {
 
 });
 
+// Abre o menu de dificuldades quando o jogador vem da tela do jogo
+if (new URLSearchParams(window.location.search).get("novoJogo") === "1") {
+    menuDificuldade.classList.add("ativo");
+}
+
 // Troca de tema darkmode e lightmode
 btnTema.addEventListener("click", () => {
 
@@ -67,17 +72,5 @@ botoesDificuldade.forEach(botao => {
         iniciarJogo(botao.classList[1]);
 
     });
-
-});
-
-btnMedio.addEventListener("click", () => {
-
-    iniciarJogo("medio");
-
-});
-
-btnDificil.addEventListener("click", () => {
-
-    iniciarJogo("dificil");
 
 });
